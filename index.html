@@ -186,6 +186,7 @@
                 <select id="exam-topic" onchange="toggleCustomTopic()" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white shadow-sm" required>
                     <option value="" disabled selected>--- Select an Exam Category ---</option>
                     
+                    <!-- General Subjects (Moved to Top) -->
                     <optgroup label="General Subjects">
                         <option value="Advanced English Grammar and Vocabulary">English Grammar</option>
                         <option value="Advanced Mathematics and Quantitative Aptitude">Maths / Aptitude</option>
@@ -298,10 +299,12 @@
         <div class="exam-content-area bg-white">
             <div id="question-container" class="min-h-[250px] mb-8 pt-6 md:pt-8">
                 <p id="current-question" class="text-2xl font-extrabold text-gray-900 mb-8 leading-relaxed animate-fade-in border-l-4 border-blue-500 pl-3">
-                    </p>
+                    <!-- Question will be inserted here -->
+                </p>
 
                 <div id="options-container" class="space-y-4">
-                    </div>
+                    <!-- Options will be inserted here -->
+                </div>
             </div>
         </div>
 
@@ -448,7 +451,7 @@
     const PREMIUM_CODE = "DIGITMART"; 
     // ----------------------------
     
-    // --- API Key Placeholder ---
+    // --- User-Provided API Key ---
     const apiKey = "AIzaSyCmPT4_hcAE8EzlH0rFN2cEyycb3--Thrw"; 
     // ----------------------------
 
@@ -601,14 +604,14 @@
         if (element.requestFullscreen) {
             element.requestFullscreen();
         } else if (element.webkitRequestFullscreen) {
-            element.webkitRequestFullscreen(); // Safari
+            element.webkitRequestFullscreen();
         } else if (element.mozRequestFullScreen) {
-            element.mozRequestFullScreen(); // Firefox
+            element.mozRequestFullScreen();
         } else if (element.msRequestFullscreen) {
-            element.msRequestFullscreen(); // IE/Edge
+            element.msRequestFullscreen();
         }
     }
-    
+
     function exitFullScreen() {
         if (document.exitFullscreen) {
             document.exitFullscreen();
@@ -620,7 +623,6 @@
             document.msExitFullscreen();
         }
     }
-
 
     function startLoading() {
         userName = document.getElementById('user-name').value.trim();
@@ -684,7 +686,7 @@
 
         const systemPrompt = You are an expert educational content generator. Your task is to create ${questionCount} multiple-choice questions (MCQs) for an exam on the subject: "${examTopic}". The output MUST be a JSON array of objects following the provided schema. Generate all 'question' and 'options' text strictly in ${examLanguage}. Ensure each question has exactly 4 options (A, B, C, D) and a single correct answer. The questions should look like they are sourced from previous exam papers and a large question bank.;
         
-        const userQuery = Generate ${questionCount} multiple-choice questions on the topic: ${examTopic} for a professional assessment, simulating questions sourced from a large, established question bank. Generate questions and options in the language: ${examLanguage}.;
+        const userQuery = Generate ${questionCount} multiple-choice questions on the topic: ${examTopic} for a professional assessment. Focus on the specified Indian/Assam exam standards if mentioned. Generate questions and options in the language: ${examLanguage}.;
 
         const payload = {
             contents: [{ parts: [{ text: userQuery }] }],

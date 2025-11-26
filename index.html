@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DigitMCQ Master - Professional Exam Platform</title>
+    <title>DigitMCQ Master - AI Competitive Exam Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- HTML2Canvas CDN for JPG/Image Download -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -12,45 +12,23 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; 
             color: #1f2937; 
         }
         
-        /* Full-screen Overlay (Fixed Positioning) with Background Image and Dark Overlay */
+        /* Full-screen Overlay (Fixed Positioning) for Anti-Cheating and scroll fix */
         #app-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #0d131f; /* Fallback for dark background */
-            /* !!! REPLACE THIS URL WITH YOUR IMAGE LINK !!! */
-            background-image: url('https://placehold.co/1920x1080/0d131f/ffffff?text=Your+Photo+Here'); 
-            background-size: cover;
-            background-position: center;
+            background-color: #f0f4f8;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
             z-index: 9999;
             padding-bottom: 20px;
-            position: relative; 
-        }
-
-        /* Dark overlay for text visibility */
-        #app-container::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); /* Slightly darker overlay for contrast */
-            z-index: 9998; 
-        }
-
-        /* Ensure all main content screens are on top of the overlay */
-        #setup-screen, #loading-screen, #exam-screen, #certificate-screen, #message-box, #premium-code-modal {
-            z-index: 10000;
-            position: relative;
         }
 
         /* Primary Button Style (Deep Blue) */
@@ -105,20 +83,15 @@
         }
         
         /* Certificate & Signature */
-        .certificate-container {
-            width: 100%;
-            max-width: 750px; /* Reduced max width for better mobile display and A4 aspect */
-            margin: 0 auto;
-        }
         .certificate {
             background: linear-gradient(135deg, #ffffff, #f7f7f7);
             border: 10px solid #fbbf24; 
-            padding: 40px 30px; /* Reduced horizontal padding for mobile */
+            padding: 40px;
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
             position: relative;
         }
         .cert-header { 
-            font-size: 2.5rem; /* Slightly reduced for better mobile fit */
+            font-size: 3rem; 
             font-weight: 800; 
         }
         .signature {
@@ -131,40 +104,17 @@
         .marksheet-table th { background-color: #eff6ff; color: #1e40af; }
         .marksheet-correct { background-color: #f0fff4; }
         .marksheet-incorrect { background-color: #fff0f0; }
-        
-        /* EXAM SCREEN FIX: Make content area scrollable, keep header/footer fixed */
-        #exam-screen {
-            height: 100vh;
-            max-width: 3xl;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            padding: 0;
-            overflow: hidden; /* Prevent #exam-screen itself from scrolling */
-        }
-        .exam-content-area {
-            overflow-y: auto; /* This section scrolls */
-            flex-grow: 1;
-            padding: 24px; /* Matches p-6 */
-        }
-        .exam-footer {
-            flex-shrink: 0;
-            position: sticky;
-            bottom: 0;
-            background-color: white;
-            z-index: 10;
-        }
 
     </style>
 </head>
 <body>
 
 <div id="app-container" class="p-4 sm:p-8">
-    <header class="text-center mb-8 pt-4 z-10000">
-        <h1 class="text-4xl font-extrabold text-white leading-tight">
-            <span class="text-blue-400">DigitMCQ</span> Master 🚀
+    <header class="text-center mb-8 pt-4">
+        <h1 class="text-4xl font-extrabold text-gray-900 leading-tight">
+            <span class="text-blue-600">DigitMCQ</span> Master 🚀
         </h1>
-        <p class="text-gray-300 mt-1 text-lg font-bold">1,00,000+ Professional Practice Questions</p>
+        <p class="text-gray-500 mt-1 text-lg">AI-Powered Competitive Exam Preparation</p>
     </header>
 
     <!-- 1. Configuration/Setup Screen -->
@@ -182,12 +132,6 @@
                 <select id="exam-topic" onchange="toggleCustomTopic()" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white shadow-sm" required>
                     <option value="" disabled selected>--- Select an Exam Category ---</option>
                     
-                    <optgroup label="General Subjects">
-                        <option value="Advanced English Grammar and Vocabulary">English Grammar</option>
-                        <option value="Advanced Mathematics and Quantitative Aptitude">Maths / Aptitude</option>
-                        <option value="Basic Computer Science and IT">Computer Science</option>
-                    </optgroup>
-
                     <optgroup label="Assam State Exams">
                         <option value="HSLC (Class 10) General Science">HSLC (Class 10)</option>
                         <option value="HSSLC (Class 12) Arts & Commerce General Studies">HSSLC (Class 12)</option>
@@ -214,8 +158,14 @@
                         <option value="SSC CGL (General Intelligence and Reasoning)">SSC CGL</option>
                         <option value="RRB Group D (General Science and Current Affairs)">RRB Group D</option>
                     </optgroup>
+
+                    <optgroup label="General Subjects">
+                        <option value="Advanced English Grammar and Vocabulary">English Grammar</option>
+                        <option value="Advanced Mathematics and Quantitative Aptitude">Maths / Aptitude</option>
+                        <option value="Basic Computer Science and IT">Computer Science</option>
+                    </optgroup>
                     
-                    <option value="custom">✍ Custom Topic (Premium)</option>
+                    <option value="custom">✍️ Custom Topic (Premium)</option>
                 </select>
             </div>
             
@@ -258,13 +208,8 @@
         <div id="error-message" class="text-red-600 text-sm mt-4 font-medium hidden p-2 bg-red-100 rounded-lg border border-red-300"></div>
         
         <button onclick="startLoading()" class="btn-primary w-full mt-8 py-3 rounded-lg text-lg shadow-xl">
-            Start Exam 🧠
+            Start AI Exam 🧠
         </button>
-        
-        <!-- More Tools Button -->
-        <a href="https://digitsync.github.io/DigitPhone/" target="_blank" class="w-full mt-4 py-3 rounded-lg text-lg font-semibold text-center text-blue-700 bg-blue-100 hover:bg-blue-200 transition-colors block shadow-md">
-            More Tools 🛠
-        </a>
     </div>
 
     <!-- 2. Loading Screen -->
@@ -272,16 +217,16 @@
         <div class="flex justify-center mb-6">
             <div class="spinner rounded-full border-8 border-t-8 border-blue-600 w-16 h-16 animate-spin"></div>
         </div>
-        <p class="text-2xl font-extrabold text-blue-600">Loading Questions from 1,00,000+ Bank...</p>
-        <p class="text-gray-500 mt-2">The system is preparing your specialized test. Please wait.</p>
-        <p class="text-sm mt-4 text-red-500 font-medium bg-red-50 p-2 rounded">⚠ Full-screen mode starts now. The timer will begin immediately. Do not switch tabs!</p>
+        <p class="text-2xl font-extrabold text-blue-600">Generating Questions...</p>
+        <p class="text-gray-500 mt-2">Gemini AI is preparing your test. Please wait.</p>
+        <p class="text-sm mt-4 text-red-500 font-medium bg-red-50 p-2 rounded">⚠️ Full-screen mode starts now. The timer will begin immediately. Do not switch tabs!</p>
     </div>
 
-    <!-- 3. Exam Screen (Optimized for Scrollability) -->
-    <div id="exam-screen" class="hidden max-w-3xl mx-auto w-full rounded-xl shadow-2xl overflow-hidden">
+    <!-- 3. Exam Screen -->
+    <div id="exam-screen" class="hidden flex-grow flex flex-col max-w-3xl mx-auto w-full p-0 bg-white rounded-xl shadow-2xl overflow-hidden">
         
-        <!-- Header: Timer and Progress (FIXED TOP) -->
-        <div class="bg-blue-800 p-4 flex justify-between items-center text-white sticky top-0 z-10 shadow-lg flex-shrink-0">
+        <!-- Header: Timer and Progress -->
+        <div class="bg-blue-800 p-4 flex justify-between items-center text-white sticky top-0 z-10 shadow-lg">
             <p id="exam-progress" class="text-lg font-bold">Question 1 / 10</p>
             <div class="text-center">
                 <p class="text-sm opacity-80">Time Remaining</p>
@@ -290,9 +235,9 @@
             <p id="exam-topic-display" class="text-sm font-medium opacity-80 truncate max-w-[30%] text-right">Topic: General</p>
         </div>
 
-        <!-- Question Body (SCROLLABLE CONTENT AREA) -->
-        <div class="exam-content-area bg-white">
-            <div id="question-container" class="min-h-[250px] mb-8 pt-6 md:pt-8">
+        <!-- Question Body -->
+        <div class="p-6 md:p-8 flex-grow flex flex-col">
+            <div id="question-container" class="min-h-[250px] mb-8 flex-grow">
                 <p id="current-question" class="text-2xl font-extrabold text-gray-900 mb-8 leading-relaxed animate-fade-in border-l-4 border-blue-500 pl-3">
                     <!-- Question will be inserted here -->
                 </p>
@@ -301,74 +246,72 @@
                     <!-- Options will be inserted here -->
                 </div>
             </div>
-        </div>
 
-        <!-- Navigation Buttons (FIXED BOTTOM) -->
-        <div class="exam-footer flex justify-between space-x-4 p-4 border-t border-gray-200">
-            <button onclick="previousQuestion()" id="prev-btn" class="py-3 px-6 rounded-lg text-xl transition-transform disabled:opacity-50 bg-gray-400 hover:bg-gray-500 text-white shadow-md" disabled>
-                Previous
-            </button>
-            <button onclick="nextQuestion(true)" id="next-btn" class="btn-primary flex-grow py-3 rounded-lg text-xl transition-transform disabled:opacity-50 shadow-md" disabled>
-                Next Question
-            </button>
+            <!-- Navigation Buttons (Fixed to the bottom) -->
+            <div class="flex justify-between mt-auto space-x-4 pt-4 border-t border-gray-200">
+                <button onclick="previousQuestion()" id="prev-btn" class="py-3 px-6 rounded-lg text-xl transition-transform disabled:opacity-50 bg-gray-400 hover:bg-gray-500 text-white shadow-md" disabled>
+                    Previous
+                </button>
+                <button onclick="nextQuestion(true)" id="next-btn" class="btn-primary flex-grow py-3 rounded-lg text-xl transition-transform disabled:opacity-50 shadow-md" disabled>
+                    Next Question
+                </button>
+            </div>
         </div>
     </div>
 
     <!-- 4. Certificate & Result Screen -->
     <div id="certificate-screen" class="hidden max-w-4xl mx-auto p-4 flex-grow w-full">
-        <div class="certificate-container">
-            <div class="certificate rounded-2xl" id="certificate-content">
-                <div class="text-center">
-                    <h2 class="text-2xl font-bold text-blue-700">DigitMCQ</h2>
-                    <p class="text-sm text-gray-500">A unit of DigitMart Electronics</p>
-                </div>
-                
-                <p class="text-xl text-green-600 font-bold mt-4 mb-3">CONGRATULATIONS!</p>
-                <h1 class="cert-header text-red-500">CERTIFICATE OF EXCELLENCE</h1>
-                
-                <p class="text-xl text-gray-600 italic mt-8">
-                    This prestigious certificate is awarded to
-                </p>
-                
-                <p id="cert-user-name" class="text-4xl text-gray-900 mt-3 mb-4 font-extrabold tracking-wide uppercase border-b-2 border-yellow-500 inline-block px-4 py-2"></p>
-                
-                <p class="text-xl font-medium text-gray-700 mt-4">
-                    for successfully completing the Professional Assessment on:
-                </p>
-                <p id="cert-exam-details" class="text-2xl text-blue-600 mt-2 font-extrabold"></p>
-
-                <div class="mt-8 mb-8 border-t-4 border-b-4 border-gray-200 py-6 bg-blue-50 rounded-lg shadow-inner">
-                    <p class="text-2xl text-blue-800 font-bold">Achieved Score:</p>
-                    <p id="cert-score-display" class="text-5xl text-green-600 font-extrabold mt-2"></p>
-                    <p id="cert-percentage-display" class="text-3xl text-blue-600 font-bold mt-1"></p>
-                </div>
-                
-                <!-- Signatures and Details -->
-                <div class="flex justify-around items-end mt-12 text-center">
-                    <div>
-                        <p class="border-b-2 border-gray-500 w-32 mx-auto"></p>
-                        <p class="text-sm font-medium mt-2 text-gray-700">Date: <span id="cert-date"></span></p>
-                    </div>
-                    <div>
-                        <p id="rouf-signature" class="signature">Rouf</p>
-                        <p class="border-b-2 border-red-400 w-32 mx-auto"></p>
-                        <p class="text-sm font-medium mt-2 text-gray-700">Verified by Rouf Uddin Ahmed</p>
-                    </div>
-                </div>
-
-                <p class="text-sm mt-8 text-gray-500 leading-tight">
-                    *Issued By:* DigitX, DigitMart Electronics.
-                    <br>
-                    *Address:* Bhojkhowa chapori daily market, Tezpur sonitpur, Assam 784027.
-                    <br>
-                    *Contact:* 9957189963.
-                </p>
+        <div class="certificate rounded-2xl" id="certificate-content">
+            <div class="text-center">
+                <h2 class="text-2xl font-bold text-blue-700">DigitX</h2>
+                <p class="text-sm text-gray-500">A unit of DigitMart Electronics</p>
             </div>
+            
+            <p class="text-xl text-green-600 font-bold mt-4 mb-3">CONGRATULATIONS!</p>
+            <h1 class="cert-header text-red-500">CERTIFICATE OF EXCELLENCE</h1>
+            
+            <p class="text-xl text-gray-600 italic mt-8">
+                This prestigious certificate is awarded to
+            </p>
+            
+            <p id="cert-user-name" class="text-4xl text-gray-900 mt-3 mb-4 font-extrabold tracking-wide uppercase border-b-2 border-yellow-500 inline-block px-4 py-2"></p>
+            
+            <p class="text-xl font-medium text-gray-700 mt-4">
+                for successfully completing the AI-Generated Assessment on:
+            </p>
+            <p id="cert-exam-details" class="text-2xl text-blue-600 mt-2 font-extrabold"></p>
+
+            <div class="mt-8 mb-8 border-t-4 border-b-4 border-gray-200 py-6 bg-blue-50 rounded-lg shadow-inner">
+                 <p class="text-2xl text-blue-800 font-bold">Achieved Score:</p>
+                 <p id="cert-score-display" class="text-5xl text-green-600 font-extrabold mt-2"></p>
+                 <p id="cert-percentage-display" class="text-3xl text-blue-600 font-bold mt-1"></p>
+            </div>
+            
+            <!-- Signatures and Details -->
+            <div class="flex justify-around items-end mt-12 text-center">
+                <div>
+                    <p class="border-b-2 border-gray-500 w-32 mx-auto"></p>
+                    <p class="text-sm font-medium mt-2 text-gray-700">Date: <span id="cert-date"></span></p>
+                </div>
+                <div>
+                    <p id="rouf-signature" class="signature">Rouf</p>
+                    <p class="border-b-2 border-red-400 w-32 mx-auto"></p>
+                    <p class="text-sm font-medium mt-2 text-gray-700">Verified by Rouf Uddin Ahmed</p>
+                </div>
+            </div>
+
+            <p class="text-sm mt-8 text-gray-500 leading-tight">
+                **Issued By:** DigitX, DigitMart Electronics.
+                <br>
+                **Address:** Bhojkhowa chapori daily market, Tezpur sonitpur, Assam 784027.
+                <br>
+                **Contact:** 9957189963.
+            </p>
         </div>
         
         <div class="max-w-4xl mx-auto text-center mt-6 space-y-4">
             <button onclick="downloadCertificate()" class="btn-primary py-3 px-8 rounded-lg font-semibold w-full sm:w-auto shadow-lg">
-                Download Certificate (JPG) ⬇
+                Download Certificate (JPG) ⬇️
             </button>
             <div id="marksheet-gate-container" class="mt-4">
                 <button onclick="toggleMarksheet()" id="marksheet-btn" class="py-2 px-6 rounded-lg font-semibold bg-red-500 hover:bg-red-600 text-white transition-colors shadow-md">
@@ -446,7 +389,7 @@
     const PREMIUM_CODE = "DIGITMART"; 
     // ----------------------------
     
-    // --- API Key Placeholder ---
+    // --- User-Provided API Key ---
     const apiKey = "AIzaSyCmPT4_hcAE8EzlH0rFN2cEyycb3--Thrw"; 
     // ----------------------------
 
@@ -522,8 +465,8 @@
     function openWhatsAppForPremium(feature) {
         userName = document.getElementById('user-name').value.trim() || 'Student';
         const phoneNumber = '919957189963'; 
-        const message = Hello, I am interested in the DigitMCQ Premium Code. I am contacting from the exam site regarding the "${feature}" feature. My name is ${userName}. I would like to purchase the code.;
-        const whatsappUrl = https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)};
+        const message = `Hello, I am interested in the DigitMCQ Premium Code. I am contacting from the exam site regarding the "${feature}" feature. My name is ${userName}. I would like to purchase the code.`;
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
     }
     
@@ -534,18 +477,18 @@
             try {
                 const response = await fetch(url, options);
                 if (!response.ok) {
-                    console.error(Attempt ${i + 1} received HTTP status: ${response.status});
-                    throw new Error(HTTP error! status: ${response.status});
+                    console.error(`Attempt ${i + 1} received HTTP status: ${response.status}`);
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 return response;
             } catch (error) {
                 lastError = error;
                 const delay = Math.pow(2, i) * 1000;
-                console.warn(Fetch attempt ${i + 1} failed. Retrying in ${delay / 1000}s...);
+                console.warn(`Fetch attempt ${i + 1} failed. Retrying in ${delay / 1000}s...`);
                 await new Promise(resolve => setTimeout(resolve, delay));
             }
         }
-        throw new Error(Failed to fetch after ${maxRetries} attempts. Last error: ${lastError.message});
+        throw new Error(`Failed to fetch after ${maxRetries} attempts. Last error: ${lastError.message}`);
     }
 
 
@@ -555,9 +498,6 @@
         const qKey = qCountValue.includes('-premium') ? '100' : qCountValue;
         timeRemaining = TIME_MAP[qKey];
         updateTimerDisplay();
-        
-        // CRITICAL FIX: Trigger fullscreen here, after the user interaction (Start Exam click)
-        enterFullScreen(); 
 
         timerInterval = setInterval(() => {
             timeRemaining--;
@@ -577,7 +517,7 @@
         const timerElement = document.getElementById('timer-display');
         
         timerElement.textContent = 
-            ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')};
+            `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
             
         // Visual warning for low time
         if (timeRemaining < 60) {
@@ -623,7 +563,7 @@
                 return;
             }
             if (!hasPremiumAccess) {
-                document.getElementById('error-message').textContent = Custom Topics are Premium. Enter the code or contact us via WhatsApp.;
+                document.getElementById('error-message').textContent = `Custom Topics are Premium. Enter the code or contact us via WhatsApp.`;
                 document.getElementById('error-message').classList.remove('hidden');
                 return;
             }
@@ -635,7 +575,7 @@
         // 2. 100 Question Count Check
         if (qCountValue === '100-premium') {
              if (!hasPremiumAccess) {
-                document.getElementById('error-message').textContent = The 100-Question Exam is Premium. Enter the code or contact us via WhatsApp.;
+                document.getElementById('error-message').textContent = `The 100-Question Exam is Premium. Enter the code or contact us via WhatsApp.`;
                 document.getElementById('error-message').classList.remove('hidden');
                 return;
             }
@@ -665,14 +605,11 @@
     }
 
     async function generateQuestions() {
-        // --- API CALL LOGIC ---
-        // We will keep the structure of the API call the same, but the system prompt
-        // will be adjusted to hide the AI source and emphasize the large question bank.
-        const apiUrl = https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey};
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
-        const systemPrompt = You are an expert educational content generator tasked with creating professional multiple-choice questions (MCQs) for an exam from a vast database of over 100,000 existing questions. Your task is to generate ${questionCount} MCQs for the subject: "${examTopic}". The output MUST be a JSON array of objects following the provided schema. Generate all 'question' and 'options' text strictly in ${examLanguage}. Ensure each question has exactly 4 options (A, B, C, D) and a single correct answer.;
+        const systemPrompt = `You are an expert educational content generator. Your task is to create ${questionCount} multiple-choice questions (MCQs) for an exam on the subject: "${examTopic}". The output MUST be a JSON array of objects following the provided schema. Generate all 'question' and 'options' text strictly in ${examLanguage}. Ensure each question has exactly 4 options (A, B, C, D) and a single correct answer.`;
         
-        const userQuery = Generate ${questionCount} multiple-choice questions on the topic: ${examTopic} for a professional assessment, simulating questions sourced from a large, established question bank. Generate questions and options in the language: ${examLanguage}.;
+        const userQuery = `Generate ${questionCount} multiple-choice questions on the topic: ${examTopic} for a professional assessment. Focus on the specified Indian/Assam exam standards if mentioned. Generate questions and options in the language: ${examLanguage}.`;
 
         const payload = {
             contents: [{ parts: [{ text: userQuery }] }],
@@ -719,27 +656,26 @@
                 questions = JSON.parse(jsonText);
                 
                 if (questions.length === 0) {
-                    throw new Error("Could not generate questions. Please try changing the Topic or Language.");
+                    throw new Error("AI could not generate questions. Please try changing the Topic or Language.");
                 }
 
                 document.getElementById('loading-screen').classList.add('hidden');
                 document.getElementById('exam-screen').classList.remove('hidden');
                 
-                // Fullscreen and Timer start here, linked to the user's initial click
+                enterFullScreen();
                 startTimer();
                 displayQuestion();
 
             } else {
-                throw new Error("Response format error or missing content.");
+                throw new Error("AI Response Format Error or Missing Content.");
             }
 
         } catch (error) {
-            console.error("API Error:", error);
+            console.error("Gemini API Error:", error);
             document.getElementById('loading-screen').classList.add('hidden');
             document.getElementById('setup-screen').classList.remove('hidden');
-            showMessage(Fatal Error: Question Generation Failed. Error: ${error.message});
+            showMessage(`Fatal Error: Question Generation Failed. Error: ${error.message}`);
         }
-        // --- END API CALL LOGIC ---
     }
 
     function recordAnswer() {
@@ -790,9 +726,9 @@
         const recordedAnswer = userAnswers.find(a => a.qIndex === questionNumber);
         selectedAnswer = recordedAnswer ? recordedAnswer.userAnswerKey : null;
         
-        document.getElementById('exam-progress').textContent = Question ${questionNumber} of ${questions.length};
-        document.getElementById('exam-topic-display').textContent = Topic: ${examTopic} (${examLanguage});
-        document.getElementById('current-question').textContent = ${questionNumber}. ${qData.question};
+        document.getElementById('exam-progress').textContent = `Question ${questionNumber} of ${questions.length}`;
+        document.getElementById('exam-topic-display').textContent = `Topic: ${examTopic} (${examLanguage})`;
+        document.getElementById('current-question').textContent = `${questionNumber}. ${qData.question}`;
 
         const optionsContainer = document.getElementById('options-container');
         optionsContainer.innerHTML = ''; 
@@ -803,7 +739,7 @@
             
             const optionDiv = document.createElement('div');
             optionDiv.className = 'option-item p-4 bg-gray-50 hover:bg-blue-50 rounded-lg cursor-pointer transition-all';
-            optionDiv.innerHTML = <span class="font-bold text-blue-700 option-key">${key}.</span> ${optionText};
+            optionDiv.innerHTML = `<span class="font-bold text-blue-700 option-key">${key}.</span> ${optionText}`;
             optionDiv.dataset.key = key;
 
             // Apply 'option-selected' class if this option was previously selected
@@ -914,15 +850,15 @@
 
     function generateCertificate() {
         const percentage = (score / questions.length) * 100;
-        const resultText = ${score} out of ${questions.length};
+        const resultText = `${score} out of ${questions.length}`;
         const date = new Date().toLocaleDateString('en-IN', {
             day: 'numeric', year: 'numeric', month: 'long'
         });
         
         document.getElementById('cert-user-name').textContent = userName;
-        document.getElementById('cert-exam-details').textContent = ${examTopic} (${examLanguage}).;
+        document.getElementById('cert-exam-details').textContent = `${examTopic} (${examLanguage}).`;
         document.getElementById('cert-score-display').textContent = resultText;
-        document.getElementById('cert-percentage-display').textContent = (${percentage.toFixed(2)}%);
+        document.getElementById('cert-percentage-display').textContent = `(${percentage.toFixed(2)}%)`;
         document.getElementById('cert-date').textContent = date;
         
         const marksheetBtn = document.getElementById('marksheet-btn');
@@ -979,7 +915,7 @@
 
         userAnswers.forEach(answer => {
             const row = document.createElement('tr');
-            row.className = border ${answer.isCorrect ? 'marksheet-correct' : 'marksheet-incorrect'} transition-colors;
+            row.className = `border ${answer.isCorrect ? 'marksheet-correct' : 'marksheet-incorrect'} transition-colors`;
 
             const userAnswerText = answer.userAnswerKey ? answer.userAnswerKey + '. ' + (answer.options[answer.userAnswerKey] || "No Answer") : "No Answer Selected";
             const correctAnswerText = answer.correctAnswerKey + '. ' + answer.options[answer.correctAnswerKey];
@@ -1017,7 +953,7 @@
             const imageURL = canvas.toDataURL('image/jpeg', 0.9); 
             const link = document.createElement('a');
             link.href = imageURL;
-            link.download = DigitX_Certificate_${userName.replace(/\s/g, '_')}.jpg;
+            link.download = `DigitX_Certificate_${userName.replace(/\s/g, '_')}.jpg`;
             
             document.body.appendChild(link);
             link.click();
@@ -1037,3 +973,4 @@
 
 </body>
 </html>
+
